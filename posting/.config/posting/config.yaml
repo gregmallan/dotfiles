@@ -1,0 +1,7 @@
+# theme: galaxy
+theme: aurora
+# theme: tokyo-night
+layout: horizontal
+# layout: vertical
+command_palette:
+  theme_preview: false
