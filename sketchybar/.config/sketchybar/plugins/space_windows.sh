@@ -11,6 +11,8 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
     
     sketchybar --set space.$workspace drawing=on
     
+    lable_padding_right=20
+    
     if [ "${apps}" != "" ]; then
       icon_strip=" "
       while read -r app; do
@@ -18,7 +20,10 @@ if [ "$SENDER" = "aerospace_workspace_change" ]; then
       done <<<"${apps}"
       sketchybar --set space.$workspace label="$icon_strip"
     else
-      sketchybar --set space.$workspace label=""
+        label_padding_right=10
     fi
+
+    sketchybar --set space.$sid label="$icon_strip" label.padding_right=$label_padding_right
+
   done
 fi

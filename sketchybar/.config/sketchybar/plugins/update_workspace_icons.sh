@@ -7,7 +7,7 @@ update_space_icons() {
     local apps=$(aerospace list-windows --workspace "$sid" | awk -F'|' '{gsub(/^ *| *$/, "", $2); print $2}')
 
     sketchybar --set space.$sid drawing=on
-
+    label_padding_right=20
     if [ "${apps}" != "" ]; then
         icon_strip=" "
         while read -r app; do
@@ -15,8 +15,10 @@ update_space_icons() {
         done <<<"${apps}"
     else
         icon_strip=""
+        label_padding_right=10
     fi
-    sketchybar --set space.$sid label="$icon_strip"
+
+    sketchybar --set space.$sid label="$icon_strip" label.padding_right=$label_padding_right
 }
 
 # Update all workspaces to ensure clean state

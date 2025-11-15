@@ -3,6 +3,9 @@
 # For a (much) more advanced configuration example see:
 # https://github.com/FelixKratz/dotfiles
 
+# Loads all defined colors
+source "$CONFIG_DIR/colors.sh" 
+
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
@@ -12,7 +15,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+sketchybar --bar position=top height=40 blur_radius=30 color=$BAR_COLOR_TRANSPARENT
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -24,8 +27,8 @@ default=(
   padding_right=5
   icon.font="Hack Nerd Font:Bold:17.0"
   label.font="SF Pro:Semibold:17.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
+  icon.color=$WHITE
+  label.color=$WHITE
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -114,23 +117,16 @@ for monitor_id in $(aerospace list-monitors --format "%{monitor-id}"); do
       --subscribe space.$sid aerospace_workspace_change \
       --set space.$sid \
       drawing=on \
-      background.color=0x44ffffff \
+      background.color=$WORKSPACE_BG_UNFOCUSED \
       background.corner_radius=5 \
       background.drawing=on \
-      background.border_color=0xAAFFFFFF \
-      background.border_width=0 \
       background.height=25 \
       icon="$sid" \
       icon.padding_left=10 \
-      icon.shadow.distance=4 \
-      icon.shadow.color=0xA0000000 \
       label.font="sketchybar-app-font:Regular:16.0" \
-      label.padding_right=20 \
+      label.padding_right=10 \
       label.padding_left=0 \
       label.y_offset=-1 \
-      label.shadow.drawing=off \
-      label.shadow.color=0xA0000000 \
-      label.shadow.distance=4 \
       click_script="aerospace workspace $sid" \
       script="$CONFIG_DIR/plugins/aerospace.sh $sid"
   done
@@ -146,15 +142,18 @@ for monitor in $(aerospace list-monitors --format "%{monitor-appkit-nsscreen-scr
     sketchybar --set space.$sid drawing=on
 
     icon_strip=" "
+    label_padding_right=20
+
     if [ "${apps}" != "" ]; then
       while read -r app; do
         icon_strip+=" $($CONFIG_DIR/plugins/icon_map_fn.sh "$app")"
       done <<<"${apps}"
     else
       icon_strip=""
+      label_padding_right=10
     fi
     echo "-> $icon_strip"
-    sketchybar --set space.$sid label="$icon_strip"
+    sketchybar --set space.$sid label="$icon_strip" label.padding_right=$label_padding_right
   done
 done
 
