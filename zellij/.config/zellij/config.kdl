@@ -283,14 +283,14 @@ themes {
 // theme "dracula"
 // theme "gruvbox-light" // eeewww grosss
 // theme "gruvbox-dark" 
-theme "tokyo-night-dark"
+// theme "tokyo-night-dark"
 // theme "tokyo-night-light"
 // theme "tokyo-night-storm"
 // theme "tokyo-night"
 // theme "catppuccin-latte"
 // theme "catppuccin-frappe"
 // theme "catppuccin-macchiato"
-// theme "catppuccin-mocha"
+theme "catppuccin-mocha"
 
 // The name of the default layout to load on startup
 // Default: "default"
